@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff1ea">
+<title>Akku and Navu Love Story</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap">
+<style>
+:root{--ivory:#fff7f1;--blush:#fbd9de;--pink:#f4b6c2;--rose:#e5718e;--deep:#b83a5e;--gold:#c9965a;--plum:#4a1f35;--red:#d62846;
+--serif:'Cormorant Garamond',Georgia,serif;--script:'Pinyon Script',cursive;--sans:'Jost',system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--ivory);color:var(--plum);font-family:var(--sans);font-weight:300;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
+.scene{position:absolute;inset:0;display:flex;overflow-y:auto;overflow-x:hidden;padding:84px 6vw 110px;visibility:hidden;opacity:0;transition:opacity .5s,visibility 0s .5s}
+.scene.active{visibility:visible;opacity:1;transition:opacity .6s .1s,visibility 0s}
+.in{margin:auto;position:relative;z-index:5;width:min(1100px,100%);text-align:center}
+.rise{opacity:0}.active .rise{animation:rise 1.1s var(--ease) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(50px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,8vw,6rem);line-height:.95;margin:.1em 0 .25em}
+h2 b{font-family:var(--script);font-weight:400;color:var(--deep);font-size:1.3em}
+.kick{font-size:.85rem;letter-spacing:.28em;color:var(--deep);font-weight:500}
+.hint{opacity:.7;margin:0 0 1.2rem}
+.btn{display:inline-flex;gap:14px;align-items:center;border:0;border-radius:100px;padding:17px 38px;background:linear-gradient(135deg,var(--rose),var(--deep));color:#fff;font-weight:500;letter-spacing:.16em;font-size:.82rem;box-shadow:0 14px 40px -10px rgba(184,58,94,.65);transition:transform .35s var(--ease)}
+.btn:hover{transform:translateY(-4px) scale(1.04)}
+/* chrome */
+.top{position:fixed;z-index:60;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) 5vw 0;pointer-events:none}
+.top>*{pointer-events:auto}
+.brand{font-family:var(--script);font-size:1.9rem;color:var(--deep)}
+#snd{border:1px solid rgba(184,58,94,.4);background:rgba(255,255,255,.5);border-radius:100px;padding:8px 16px;font-size:.75rem;letter-spacing:.14em;backdrop-filter:blur(6px)}
+.bar{position:fixed;z-index:60;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:0 5vw calc(22px + env(safe-area-inset-bottom,0px))}
+.dots{display:flex;gap:10px;align-items:center}
+.dots button{width:9px;height:9px;border-radius:9px;border:0;padding:0;background:rgba(184,58,94,.28);transition:width .5s var(--ease),background .4s}
+.dots button.on{width:34px;background:var(--deep)}
+.nav{width:46px;height:46px;border-radius:50%;border:1px solid rgba(184,58,94,.45);background:rgba(255,255,255,.6);font-size:1.1rem;backdrop-filter:blur(6px);transition:transform .3s}
+.nav:hover{transform:scale(1.12)}
+#wipe{position:fixed;inset:0;z-index:70;pointer-events:none;display:grid;place-items:center;background:linear-gradient(160deg,#ef4a68,#9e1230);clip-path:inset(100% 0 0 0);font-size:4rem;color:#fff}
+#wipe.go{animation:wipe 1.15s cubic-bezier(.7,0,.3,1)}
+@keyframes wipe{0%{clip-path:inset(100% 0 0 0)}42%,58%{clip-path:inset(0)}100%{clip-path:inset(0 0 100% 0)}}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:80;pointer-events:none}
+/* scene 1 */
+#s0{background:radial-gradient(circle at 50% 42%,#fff 0,#ffe9e6 38%,#f9cbd5 100%)}
+#heart{position:absolute;inset:0;width:100%;height:100%}
+.fl{position:absolute;z-index:2;pointer-events:none;color:var(--red);filter:drop-shadow(0 8px 14px rgba(214,40,70,.35))}
+.fl b{display:block;font-weight:400;animation:bob 7s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-22px) rotate(10deg)}}
+.t1{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,11vw,9rem);line-height:.92;margin:.2em 0 0;text-shadow:0 0 40px #fff,0 0 12px #fff}
+.t2{font-family:var(--script);font-size:clamp(4.5rem,18vw,14rem);line-height:1.05;margin-top:-.08em;background:linear-gradient(100deg,#b83a5e,#e5718e 30%,#d8a76a 50%,#e5718e 70%,#b83a5e);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(255,255,255,.9))}
+@keyframes sheen{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.6vw,1.7rem);margin:.4rem auto 1.8rem;max-width:34ch;text-shadow:0 0 14px #fff}
+/* scene 2 */
+#s1{background:linear-gradient(170deg,#fff0de,#fdd2d8 70%,#f7bccb)}
+.bl{position:absolute;z-index:2;width:clamp(46px,7vw,80px);aspect-ratio:.82;border-radius:50% 50% 48% 48%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75),var(--c) 45%);animation:sway var(--t,6s) ease-in-out infinite alternate;box-shadow:inset -8px -10px 20px rgba(0,0,0,.08)}
+.bl::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:90px;background:rgba(74,31,53,.3)}
+@keyframes sway{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-34px) rotate(6deg)}}
+.cake{background:none;border:0;padding:0;margin:10px auto 0;display:block;width:min(64vw,260px);filter:drop-shadow(0 24px 24px rgba(184,58,94,.3))}
+.flame{transform-origin:50% 100%;animation:flick 1s ease-in-out infinite}
+.out .flame{opacity:0;animation:none;transition:opacity .5s}
+@keyframes flick{50%{transform:scale(.85,1.12) rotate(-5deg)}}
+#reply{font-family:var(--script);font-size:clamp(2rem,6vw,3.4rem);color:var(--deep);min-height:1.4em;margin-top:8px}
+/* scene 3 */
+#s2{background:radial-gradient(#f2c9cf 1.2px,transparent 1.4px) 0 0/26px 26px,linear-gradient(#fff6ef,#ffe6dc)}
+.polas{columns:3 220px;column-gap:clamp(14px,2.5vw,30px);margin-top:26px;text-align:left}
+.pola{display:block;width:100%;break-inside:avoid;margin:0 0 clamp(14px,2.5vw,30px);background:#fff;padding:10px 10px 4px;border:0;box-shadow:0 22px 40px -16px rgba(184,58,94,.5);transform:rotate(var(--r));transition:transform .5s var(--ease)}
+.pola:hover{transform:rotate(0) translateY(-8px) scale(1.03);z-index:2}
+.pola img{display:block;width:100%;height:auto}
+.ph{display:grid;place-items:center;width:100%;aspect-ratio:var(--ar,1);background:linear-gradient(150deg,var(--c1),var(--c2));color:rgba(255,255,255,.85);font-size:2.4rem}
+.cap{display:block;font-family:var(--script);font-size:1.6rem;color:var(--deep);line-height:1.9;min-height:1.2em}
+.btn.sm{padding:12px 26px;font-size:.75rem;margin-bottom:6px}
+#lb{position:fixed;inset:0;z-index:75;background:rgba(74,31,53,.9);display:none;place-content:center;justify-items:center;padding:5vw;text-align:center;cursor:zoom-out}
+#lb.on{display:grid}
+#lb img{max-width:92vw;max-height:78vh;border:10px solid #fff;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#lb p{font-family:var(--script);color:#fff;font-size:2.2rem;margin:10px 0 0}
+/* scene 4 */
+#s3{background:linear-gradient(160deg,#f9d3da,#efa7b9 60%,#e58ca4)}
+.env{position:relative;width:min(84vw,400px);height:min(54vw,260px);margin:20px auto;background:#fff3ee;border-radius:6px;box-shadow:0 30px 60px -20px rgba(120,20,60,.5);cursor:pointer;transition:transform .8s var(--ease),opacity .8s;border:0;padding:0;display:block}
+.env .flap{position:absolute;left:0;right:0;top:0;height:58%;background:linear-gradient(#f6d2d8,#efbcc7);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:3}
+.env .pk{position:absolute;inset:0;background:linear-gradient(#fbe5e4,#f3c3cc);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);z-index:2}
+.env .seal{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-22px 0 0 -27px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ef4a68,#9e1230);color:#fff;display:grid;place-items:center;z-index:4;transition:opacity .4s;font-size:1.3rem;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.env.open .flap{transform:rotateX(180deg);z-index:1}.env.open .seal{opacity:0}
+.env.gone{transform:translateY(80px) scale(.7);opacity:0;pointer-events:none;position:absolute;left:50%;margin-left:-200px}
+.paper{display:none;background:#fffaf5;max-width:620px;margin:0 auto;padding:clamp(26px,5vw,56px);box-shadow:0 30px 70px -20px rgba(120,20,60,.55);text-align:left;border-radius:3px}
+.paper.show{display:block;animation:rise 1s var(--ease) both}
+.paper p{font-family:var(--serif);font-size:clamp(1.25rem,2.4vw,1.55rem);line-height:1.65;margin:0;min-height:8em}
+.paper .sg{font-family:var(--script);font-size:2.6rem;color:var(--deep);text-align:right;margin-top:14px}
+/* scene 5 */
+#s4{background:linear-gradient(170deg,#fff3e8,#fcd0d8 80%)}
+.gifts{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin:26px 0}
+.tk{width:min(100%,290px);text-align:left;padding:20px 22px;background:#fff;border:1.5px dashed var(--rose);border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 18px 36px -18px rgba(184,58,94,.5);transition:transform .4s var(--ease),background .4s}
+.tk:hover{transform:translateY(-6px) rotate(-1.5deg)}
+.tk small{letter-spacing:.14em;font-size:.68rem;color:var(--deep);display:block}
+.tk b{font-family:var(--serif);font-size:1.6rem;font-weight:500;line-height:1.1}
+.tk .e{font-size:2rem;color:var(--red)}
+.tk.on{background:linear-gradient(135deg,#ffe3e8,#fff);border-style:solid}
+#fin{font-family:var(--script);font-size:clamp(2.6rem,8vw,5.5rem);color:var(--red);line-height:1.1;opacity:0;transform:translateY(20px);transition:all 1s var(--ease);margin:20px auto 6px;max-width:14em}
+#fin.on{opacity:1;transform:none}
+#fn{max-width:44ch;margin:0 auto 18px;font-family:var(--serif);font-size:1.3rem;opacity:0;transition:opacity 1.2s .4s}
+#fn.on{opacity:1}
+.again{background:none;border:0;text-decoration:underline;opacity:.7;margin-top:10px}
+#hearts{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.hh{position:absolute;bottom:-50px;color:var(--red);opacity:0;animation:hrise var(--t) linear infinite;animation-delay:var(--dl)}
+@keyframes hrise{0%{transform:translateY(0) rotate(-12deg);opacity:0}12%{opacity:.75}100%{transform:translateY(-115vh) rotate(14deg);opacity:0}}
+@media(max-width:600px){.fl{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+/* first page: heart on top, text below */
+#s0{padding-bottom:96px}
+#s0 .in{margin:auto auto 0;padding-top:38vh}
+#s0 .kick{font-size:.78rem}
+#s0 .kick:empty,#s0 .hint:empty{display:none}
+#s0 .t1{font-size:min(11vw,7vh);line-height:1;margin:.1em 0 0}
+#s0 .t2{font-size:min(14vw,7.5vh);margin-top:0}
+#s0 .sub{font-size:min(4.6vw,2.4vh);margin:.3rem auto 1rem}
+#s0 .hint{font-size:.92rem;margin-bottom:1.1rem!important}
+@media(max-height:720px){#s0 .hint{display:none}#s0 .in{padding-top:34vh}}
+/* story reader */
+#s1{background:linear-gradient(170deg,#fff0de,#fdd2d8 70%,#f7bccb)}
+#s5{background:radial-gradient(circle at 50% 30%,#fff 0,#ffe3e6 45%,#f4b6c2 100%)}
+.rd{width:min(640px,100%)}
+.yrs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 0 16px}
+.chip{border:1px solid rgba(184,58,94,.4);background:rgba(255,255,255,.65);border-radius:99px;padding:6px 16px;font-size:.8rem;letter-spacing:.1em;transition:all .3s}
+.chip.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.sheet{position:relative;text-align:left;background:#fffaf5;padding:clamp(24px,5vw,44px);border-radius:3px;box-shadow:0 30px 70px -20px rgba(120,20,60,.5);overflow:hidden}
+.sheet.swap{animation:rise .8s var(--ease) both}
+.sheet .tag{font-family:var(--script);font-size:2.1rem;color:var(--deep);line-height:1.2}
+.sheet h3{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(2rem,6vw,3rem);line-height:1;margin:.1em 0 .2em}
+.sheet .cont{font-size:.8rem;letter-spacing:.14em;opacity:.6;margin:2px 0}
+.sheet .orn{color:var(--rose);letter-spacing:.5em;font-size:.8rem;margin:10px 0 14px}
+.sheet p{font-family:var(--serif);font-size:clamp(1.2rem,2.3vw,1.45rem);line-height:1.65;margin:0 0 .8em;position:relative;z-index:1}
+.sheet p:first-of-type::first-letter{float:left;font-family:var(--script);font-size:3.7em;line-height:.78;padding:.05em .1em 0 0;color:var(--deep)}
+.sheet .num{position:absolute;right:14px;bottom:-12px;font-family:var(--serif);font-style:italic;font-size:7rem;line-height:1;opacity:.07;color:var(--deep)}
+.sheet .ph1{display:block;width:100%;max-height:210px;object-fit:cover;border:6px solid #fff;box-shadow:0 14px 30px -12px rgba(184,58,94,.5);transform:rotate(-1.5deg);margin-bottom:16px}
+.rdn{display:flex;align-items:center;gap:14px;margin-top:20px}
+.rdn .btn{padding:13px 24px;font-size:.9rem}
+.prog{flex:1;height:5px;border-radius:5px;background:rgba(184,58,94,.18);overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--rose),var(--deep));transition:width .4s}
+.q{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,4.6vw,2.3rem);line-height:1.3;max-width:24em;margin:.4rem auto 1.2rem}
+.chat{display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto 22px;min-height:110px;text-align:left}
+.bub{max-width:84%;padding:12px 18px;border-radius:22px;font-family:var(--serif);font-size:1.3rem;animation:rise .6s var(--ease) both}
+.bub.me{align-self:flex-end;background:linear-gradient(135deg,var(--rose),var(--deep));color:#fff;border-bottom-right-radius:6px}
+.bub.you{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:0 8px 20px -8px rgba(184,58,94,.5)}
+#fn2{max-width:22em;margin:0 auto 18px;font-family:var(--script);font-size:clamp(1.8rem,5vw,2.6rem);color:var(--deep);line-height:1.25;opacity:0;transition:opacity 1.2s .9s}
+#fn2.on{opacity:1}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="wipe" aria-hidden="true">&#9829;</div>
+<div id="hearts" aria-hidden="true"></div>
+<div class="top"><div class="brand" id="brand"></div><button id="snd" type="button">&#9834; SOUND OFF</button></div>
+
+<main>
+<section class="scene active" id="s0"><canvas id="heart" aria-hidden="true"></canvas>
+<i class="fl" data-d=".06" style="left:5%;top:12%;font-size:6rem"><b>&#9829;</b></i>
+<i class="fl" data-d="-.04" style="right:6%;bottom:14%;font-size:8rem;color:#ff5a73"><b>&#9829;</b></i>
+<i class="fl" data-d=".09" style="right:14%;top:14%;font-size:3rem"><b>&#9829;</b></i>
+<i class="fl" data-d="-.07" style="left:12%;bottom:12%;font-size:3.4rem"><b>&#9829;</b></i>
+<i class="fl" data-d=".05" style="left:26%;top:7%;font-size:2rem;color:#ff5a73"><b>&#9829;</b></i>
+<i class="fl" data-d="-.06" style="right:24%;bottom:8%;font-size:2.4rem"><b>&#9829;</b></i>
+<i class="fl" data-d=".08" style="left:-2%;top:30%;font-size:7rem;color:var(--pink)"><b>&#10047;</b></i>
+<i class="fl" data-d="-.05" style="right:-1%;top:34%;font-size:6rem;color:var(--rose)"><b>&#10048;</b></i>
+<div class="in"><div class="kick rise" id="kick"></div><h1 class="t1 rise" style="--d:.15s">Akku and Navu</h1><div class="t2 rise" style="--d:.35s" id="name"></div><p class="sub rise" style="--d:.5s" id="sub"></p><p class="hint rise" style="--d:.6s;max-width:34ch;margin:0 auto 1.6rem" id="intro"></p><button class="btn rise" style="--d:.7s" data-next type="button">BEGIN &#9825;</button></div></section>
+
+<section class="scene" id="s1"><div class="in rd"><div class="kick rise" id="chk"></div><div class="yrs rise" style="--d:.1s" id="yrs"></div><div class="sheet" id="sheet"></div><div class="rdn"><button class="btn" id="sp" type="button" aria-label="Previous chapter">&#8592;</button><div class="prog"><i id="pg"></i></div><button class="btn" id="sn" type="button" aria-label="Next chapter">&#8594;</button></div></div></section>
+
+<section class="scene" id="s2"><div class="in"><div class="kick rise">OUR MEMORIES</div><h2 class="rise" style="--d:.1s">Little <b>memories</b></h2><p class="hint rise" style="--d:.2s">Tap any photo to see it big. Add as many as you like.</p><button class="btn sm rise" style="--d:.25s" id="addBtn" type="button">+ ADD PHOTOS</button><div class="polas rise" style="--d:.3s" id="polas"></div><input type="file" accept="image/*" id="file" multiple hidden></div></section>
+
+<section class="scene" id="s3"><div class="in"><div class="kick rise" style="color:#fff">A LETTER</div><h2 class="rise" style="--d:.1s;color:#fff">From my <b style="color:#fff">heart</b></h2>
+<button class="env rise" style="--d:.25s" id="env" type="button" aria-label="Open the letter"><span class="flap"></span><span class="pk"></span><span class="seal">&#9829;</span></button>
+<div class="paper" id="paper"><p id="lt"></p><div class="sg" id="sg"></div></div></div></section>
+
+<section class="scene" id="s5"><div class="in"><div class="kick rise">ONE MORE TIME</div><h2 class="rise" style="--d:.1s">Send it <b>again</b></h2><p class="q rise" style="--d:.2s" id="q"></p><div class="chat" id="chat" aria-live="polite"></div><button class="btn" id="sendBtn" type="button">SEND IT AGAIN &#9825;</button></div></section>
+
+<section class="scene" id="s4"><div class="in"><div class="kick rise">THE LAST CHAPTER</div><h2 class="rise" style="--d:.1s">Thank <b>you</b></h2><p class="hint rise" style="--d:.2s">Thank you for being more than just my lover. Tap each one.</p><div class="gifts rise" style="--d:.3s" id="gifts"></div>
+<button class="btn" id="finBtn" type="button">ONE LAST THING &#9825;</button><div id="fin"></div><p id="fn"></p><p id="fn2"></p><button class="again" id="again" type="button">&#8635; read our story again</button></div></section>
+</main>
+
+<div class="bar"><button class="nav" id="back" type="button" aria-label="Previous page">&#8592;</button><div class="dots" id="dots"></div><button class="nav" id="next" type="button" aria-label="Next page">&#8594;</button></div>
+
+<div id="lb" aria-hidden="true"><img alt=""><p></p></div>
+
+<script>
+/* ===== EDIT YOUR CONTENT HERE ===== */
+var C={
+ song:"song.mpeg",  /* put your song file here, e.g. "songs/our-song.mp3" */
+ kicker:"", since:"love story", from:"Always yours, Navu",
+ sub:"From a Simple Instagram Text to a Beautiful Forever",
+ intro:"",
+ q:"And if I could go back to that first Instagram message, I would send it all over again — because it led me to YOU. 🥹💗",
+ photos:[
+  {src:"images/1.jpeg"},
+  {src:"images/2.jpeg"},
+  {src:"images/3.jpeg"},
+  {src:"images/4.jpeg"},
+  {src:"images/5.jpeg"},
+  {src:"images/6.jpeg"},
+  {src:"images/7.jpeg"},
+  {src:"images/8.jpeg"},
+  {src:"images/9.jpeg"},
+  {src:"images/10.jpeg"},
+  {src:"images/11.jpeg"},
+  {src:"images/12.jpeg"},
+  {src:"images/13.jpeg"},
+  {src:"images/14.jpeg"},
+  {src:"images/15.jpeg"},
+  {src:"images/16.jpeg"},
+  {src:"images/17.jpeg"},
+  {src:"images/18.jpeg"},
+  {src:"images/19.jpeg"},
+  {src:"images/20.jpeg"},
+  {src:"images/21.jpeg"},
+  {src:"images/22.jpeg"},
+  {src:"images/23.jpeg"},
+  {src:"images/24.jpeg"},
+  {src:"images/25.jpeg"},
+  {src:"images/26.jpeg"},
+  {src:"images/27.jpeg"}
+ ],
+ story:[
+  {yr:"2023",tag:"January 7, 2023",title:"The day our story began. ✨",ps:["It all started when I replied to your Instagram story about a church perunal. Since the perunal was in my mother’s native place, I texted you to ask about it. I asked, “Your home is in Karumady, right?” and you replied, “Yes.”"]},
+  {yr:"2023",tag:"January 7, 2023",ps:["Little did we know that this simple conversation would become the beginning of our beautiful love story. ❤️","What started as a casual chat slowly became a daily habit. Day by day, our conversations grew longer, our bond became stronger, and somewhere between those endless chats, we fell in love. 😘💕"]},
+  {yr:"2023",tag:"February 3, 2023",title:"Our First Movie Date 🎬❤️",ps:["I was the one who asked you to watch a movie with me, and that day became one of the happiest days of my life. I was so happy that I didn’t even feel like going home. Every moment with you felt special, and after that day, our chats continued just as before."]},
+  {yr:"2023",tag:"February 3, 2023",ps:["Later, I asked you to come and see me, and we went to the Alappuzha Lighthouse. 🌊✨ That was where we expressed our love for each other. A beautiful moment that will always hold a special place in my heart."]},
+  {yr:"2023",tag:"February 3, 2023",ps:["We met again, but soon, everything changed when my parents came to know about our meetings. Our happiness suddenly turned into a difficult phase, and on February 12, we had to take a break. 💔","Those days were painful for me. Being away from you felt unbearable, and it was one of the hardest moments in our journey."]},
+  {yr:"2023",tag:"February 3, 2023",ps:["But sometimes, even when we try to walk away, our hearts refuse to give up on love. 🥹❤️","After five days, when I got my phone back, I texted you again, thinking that I should stop everything. But my heart couldn’t stop loving you. I continued calling you every day, especially while travelling back home. Those calls became a part of my everyday life. Sometimes, we even managed to meet.","No matter how many times life tried to separate us, somehow, we kept finding our way back to each other. 💕"]},
+  {yr:"2023",tag:"🌸 2023",title:"Love Beyond Distance",ps:["In May, I went to Thiruvananthapuram for an internship, while you were studying there at Civilians. Even though life had taken us to different places, we found time to meet and create more memories together.","Then came June, July, August, September, and October — months of long-distance love. We missed each other, waited for each other, and held on to the love that connected us."]},
+  {yr:"2023",tag:"🌸 2023",ps:["Finally, in November, we met again. ❤️","And from December onwards, when you started working in Alappuzha, we got the chance to see each other almost every day. Those little moments together became some of the sweetest parts of our journey."]},
+  {yr:"2024",tag:"💕 2024",title:"Between Togetherness and Distance",ps:["In March, you left your job, and our meetings became occasional again.","April, May, June, and July passed with us being in a long-distance relationship. Then, in August, I started a course in Ernakulam, and once again, distance became a part of our love story.","But even when we couldn’t be together every day, our love continued."]},
+  {yr:"2024",tag:"💕 2024",ps:["In October, we met again, and in November, I stopped my course. December brought us another chance to meet and spend precious time together. Every meeting felt special because we knew how much we had missed each other. 🥹💗"]},
+  {yr:"2025",tag:"❤️ 2025",title:"Another Chapter of Our Journey",ps:["In January, I started my job in Ernakulam, and once again, we had to manage our relationship from a distance.","In March, we met again. Then came more waiting, missing, and counting the days until we could see each other.","In April, I got to meet you at your brother’s wedding — a beautiful memory that made me happy to be part of your special moments. 💍❤️"]},
+  {yr:"2025",tag:"❤️ 2025",ps:["We met again in July and October, with long-distance days in between.","Then came a new beginning when you started working in Ernakulam. Finally, we could see each other almost every day again! It felt so good to have you closer to me.","But life had another plan. In November, I resigned from my job, and once again, distance became a part of our story."]},
+  {yr:"2025",tag:"❤️ 2025",ps:["Sometimes, I wonder how many times we have had to adjust our lives, change our plans, and wait patiently just to spend time together. But every time, we kept going. And that is what makes our love story ours. ❤️"]},
+  {yr:"2026",tag:"🥹❤️ March 6, 2026",title:"A Happy New Beginning",ps:["On March 6, 2026, I started my next job, and this time, it brought me a happiness I had been waiting for. I was here itself, closer to home and, most importantly, closer to you.","Finally, our long-distance chapter came to an end, and we got the chance to see and meet each other more easily."]},
+  {yr:"2026",tag:"🥹❤️ March 6, 2026",ps:["Now, I feel so happy to be near my home, my favourite person, and everything that makes my life feel complete. After all those months of waiting, missing, travelling, and counting the days, being closer to you feels like a beautiful gift. 🫂❤️"]},
+  {yr:"∞",tag:"😘💕",title:"Our Special Kind of Love",ps:["Of course, our relationship isn’t always a fairytale. We fight. We argue over little things. Sometimes, we get angry, misunderstand each other, and make each other upset.","But somehow, after every fight, we find our way back to love. We talk, we care, we forgive, and we continue choosing each other.","Fighting and loving again — that’s our main hobby! 😂❤️"]},
+  {yr:"∞",tag:"😘💕",ps:["And honestly, I wouldn’t trade our journey for anything. Every happy moment, every tear, every misunderstanding, every reunion, and every day we spent missing each other has become a part of our story."]}
+ ],
+ letter:"Thank you for being more than just my lover. Thank you for being my best friend, my comfort person, my happiness, my biggest support, and my everything. Thank you for staying in my life through all the ups and downs and for giving me so many memories to cherish. From that one Instagram message on January 7, 2023, to the beautiful journey we are living today, I am grateful for every chapter of us. ❤️ We may not have had the easiest journey, but we have a story filled with love, patience, memories, and second chances.",
+ gifts:[{t:"best friend",e:"\uD83E\uDD17"},{t:"comfort person",e:"\uD83E\uDDF8"},{t:"happiness",e:"\u2600\uFE0F"},{t:"biggest support",e:"\uD83D\uDCAA"},{t:"everything",e:"\u2665"}],
+ final:"I love you",
+ note:"Akku and Navu — a love story written through texts, movie dates, lighthouse memories, long-distance days, little fights, endless calls, and beautiful reunions. Here’s to more memories, more laughter, more fights followed by kisses, more hugs, and a lifetime of choosing each other.",
+ note2:"Thank you for everything, my love. I love you today, tomorrow, and through every chapter that life has waiting for us. ❤️💕😘"
+};
+/* =================================== */
+var $=function(i){return document.getElementById(i)},all=function(s){return [].slice.call(document.querySelectorAll(s))};
+document.title='Akku and Navu Love Story';
+$('brand').textContent='Akku & Navu';$('kick').textContent=C.kicker;$('name').textContent=C.since;$('sub').textContent=C.sub;$('intro').textContent=C.intro;$('sg').textContent=C.from;$('q').textContent=C.q;
+$('gifts').innerHTML=C.gifts.map(function(g){return '<button class="tk" type="button" data-m="Always yours"><span><small>THANK YOU FOR BEING MY</small><b>'+g.t+'</b></span><span class="e">'+g.e+'</span></button>'}).join('');
+
+/* pages */
+var sc=all('.scene'),cur=0,busy=false,dots=$('dots');
+sc.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Page '+(i+1));b.onclick=function(){show(i)};dots.appendChild(b)});
+function mark(){all('.dots button').forEach(function(b,i){b.classList.toggle('on',i===cur)})}mark();
+function show(n){if(n<0||n>=sc.length||n===cur||busy)return;busy=true;var w=$('wipe');w.classList.remove('go');void w.offsetWidth;w.classList.add('go');
+ setTimeout(function(){sc[cur].classList.remove('active');cur=n;sc[cur].classList.add('active');sc[cur].scrollTop=0;mark()},520);
+ setTimeout(function(){busy=false;w.classList.remove('go')},1150)}
+all('[data-next]').forEach(function(b){b.onclick=function(){show(cur+1)}});
+$('next').onclick=function(){show(cur+1)};$('back').onclick=function(){show(cur-1)};$('again').onclick=function(){show(0)};
+addEventListener('keydown',function(e){if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1)});
+var lw=0;addEventListener('wheel',function(e){var s=sc[cur];if(s.scrollHeight>s.clientHeight+4)return;if(Math.abs(e.deltaY)>35&&Date.now()-lw>1300){lw=Date.now();show(cur+(e.deltaY>0?1:-1))}},{passive:true});
+var tx=0,ty=0;addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',function(e){var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>80&&Math.abs(dx)>Math.abs(dy)*1.5)show(cur+(dx>0?1:-1))},{passive:true});
+/* confetti */
+var fc=$('fx'),fx=fc.getContext('2d'),F=[],run=false;
+function fs(){fc.width=innerWidth;fc.height=innerHeight}fs();addEventListener('resize',fs);
+function confetti(x,y,n){var cols=['#e0243f','#ff5a73','#e5718e','#f4b6c2','#c9965a','#e0243f','#b83a5e','#e8c48a'];
+ for(var i=0;i<(n||90);i++){var a=Math.random()*6.283,s=3+Math.random()*9;F.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-6,r:Math.random()*6,vr:(Math.random()-.5)*.4,w:5+Math.random()*7,l:1,c:cols[Math.random()*8|0],h:Math.random()<.45})}
+ if(!run){run=true;tick()}}
+function tick(){fx.clearRect(0,0,fc.width,fc.height);
+ F=F.filter(function(p){p.vy+=.22;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l-=.007;if(p.l<=0||p.y>fc.height+20)return false;
+  fx.save();fx.globalAlpha=Math.min(1,p.l*2);fx.translate(p.x,p.y);fx.rotate(p.r);fx.fillStyle=p.c;if(p.h){fx.font=(p.w*2.4)+'px serif';fx.textAlign='center';fx.textBaseline='middle';fx.fillText('\u2665',0,0)}else fx.fillRect(-p.w/2,-p.w/4,p.w,p.w/2);fx.restore();return true});
+ if(F.length)requestAnimationFrame(tick);else{run=false}}
+/* particle heart (page 1) */
+var hc=$('heart'),hx=hc.getContext('2d'),W,H,S,dp=Math.min(devicePixelRatio||1,2),mx=-999,my=-999,t=0,N=innerWidth<600?520:900,P=[],form=false;
+function hs(){W=hc.offsetWidth;H=hc.offsetHeight;hc.width=W*dp;hc.height=H*dp;hx.setTransform(dp,0,0,dp,0,0);S=Math.min(W*.8,H*.4)/36}hs();addEventListener('resize',hs);
+for(var i=0;i<N;i++){var a=Math.random()*6.283,k=Math.random()<.5?1:Math.sqrt(Math.random());
+ P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:0,vy:0,ux:k*16*Math.pow(Math.sin(a),3),uy:-k*(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a)),
+ r:.8+Math.random()*2.2,c:['214,40,70','235,72,98','168,20,48','201,150,90'][Math.random()*4|0],ph:Math.random()*6.28})}
+setTimeout(function(){form=true},900);
+$('s0').addEventListener('pointermove',function(e){var r=hc.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;
+ all('.fl').forEach(function(f){var d=parseFloat(f.dataset.d);f.style.translate=((e.clientX/innerWidth-.5)*d*1200)+'px '+((e.clientY/innerHeight-.5)*d*800)+'px'})});
+$('s0').addEventListener('pointerleave',function(){mx=my=-999});
+function hf(){requestAnimationFrame(hf);if(cur!==0)return;t+=.016;hx.clearRect(0,0,W,H);
+ var b=1+.045*Math.pow(Math.max(0,Math.sin(t*2.6)),6),cx=W/2,cy=H*.27;
+ for(var i=0;i<N;i++){var p=P[i];
+  if(form){p.vx+=(cx+p.ux*S*b-p.x)*.011;p.vy+=(cy+p.uy*S*b-p.y)*.011}
+  var dx=p.x-mx,dy=p.y-my,d=dx*dx+dy*dy;if(d<16000){var f=(1-d/16000)*3,q=Math.sqrt(d+1);p.vx+=dx/q*f;p.vy+=dy/q*f}
+  p.vx*=.9;p.vy*=.9;p.x+=p.vx;p.y+=p.vy;
+  hx.fillStyle='rgba('+p.c+','+(.35+.4*Math.sin(t*2+p.ph)*Math.sin(t*2+p.ph))+')';hx.beginPath();hx.arc(p.x,p.y,p.r,0,6.283);hx.fill()}}
+hf();
+/* page 3: photo wall. Fill C.photos or use the Add photos button */
+var polas=$('polas'),file=$('file'),rots=[-3,2,-1.5,3,-2,1.5],pc=0,lb=$('lb');
+function addPhoto(src,cap){var b=document.createElement('button');b.type='button';b.className='pola';b.style.setProperty('--r',rots[pc++%6]+'deg');
+ b.innerHTML='<img alt="'+(cap||'Our photo')+'" src="'+src+'"><span class="cap">'+(cap||'')+'</span>';
+ b.onclick=function(){lb.querySelector('img').src=src;lb.querySelector('p').textContent=cap||'';lb.classList.add('on')};polas.appendChild(b)}
+lb.onclick=function(){lb.classList.remove('on')};
+if(C.photos.length)C.photos.forEach(function(p){addPhoto(p.src,p.cap)});
+else{var pal=[['#f6a9bb','#e5718e'],['#fbd6a8','#e9a56e'],['#cdb6f0','#e58fb6'],['#ffd1c1','#f08a9b']],ars=[1,.75,1.3,.9,1.15,.8];
+ for(var j=0;j<8;j++){var sl=document.createElement('button');sl.type='button';sl.className='pola slot';sl.style.setProperty('--r',rots[j%6]+'deg');
+  sl.innerHTML='<span class="ph" style="--c1:'+pal[j%4][0]+';--c2:'+pal[j%4][1]+';--ar:'+ars[j%6]+'">&#9829;</span><span class="cap">our memory here</span>';
+  sl.onclick=function(){file.click()};polas.appendChild(sl)}}
+$('addBtn').onclick=function(){file.click()};
+file.onchange=function(){var fl=[].slice.call(file.files);if(!fl.length)return;
+ all('.slot').forEach(function(x){x.remove()});fl.forEach(function(f){addPhoto(URL.createObjectURL(f),'')});file.value=''};
+/* page 4: letter */
+var env=$('env'),typed=false;
+env.onclick=function(){if(typed)return;typed=true;env.classList.add('open');
+ setTimeout(function(){env.classList.add('gone');setTimeout(function(){env.style.display='none'},800);$('paper').classList.add('show');
+  var i=0,el=$('lt');(function tp(){el.textContent=C.letter.slice(0,++i);if(i<C.letter.length)setTimeout(tp,26)})();confetti(innerWidth/2,innerHeight*.4,40)},900)};
+
+/* story reader */
+var ci=0,ST=C.story,sh=$('sheet'),yl=[];
+ST.forEach(function(o){if(yl.indexOf(o.yr)<0)yl.push(o.yr)});
+$('yrs').innerHTML=yl.map(function(y){return '<button class="chip" type="button" data-y="'+y+'">'+y+'</button>'}).join('');
+all('.chip').forEach(function(b){b.onclick=function(){for(var i=0;i<ST.length;i++)if(ST[i].yr===b.dataset.y){ci=i;break}paint()}});
+function paint(){var o=ST[ci];
+ sh.innerHTML=(o.img?'<img class="ph1" alt="" src="'+o.img+'">':'')+'<div class="tag">'+o.tag+'</div>'+(o.title?'<h3>'+o.title+'</h3>':'<div class="cont">CONTINUED</div>')+'<div class="orn">&#9829; &#9829; &#9829;</div>'+o.ps.map(function(p){return '<p>'+p+'</p>'}).join('')+'<div class="num">'+(ci<9?'0':'')+(ci+1)+'</div>';
+ sh.classList.remove('swap');void sh.offsetWidth;sh.classList.add('swap');
+ $('pg').style.width=((ci+1)/ST.length*100)+'%';$('chk').textContent='CHAPTER '+(ci+1)+' OF '+ST.length;
+ all('.chip').forEach(function(b){b.classList.toggle('on',b.dataset.y===o.yr)});
+ sc[1].scrollTop=0}
+$('sn').onclick=function(){if(ci<ST.length-1){ci++;paint()}else show(cur+1)};
+$('sp').onclick=function(){if(ci>0){ci--;paint()}else show(cur-1)};
+paint();
+
+/* one more time */
+$('sendBtn').onclick=function(){this.style.display='none';var ch=$('chat');ch.innerHTML='<div class="bub me">Your home is in Karumady, right?</div>';
+ setTimeout(function(){ch.insertAdjacentHTML('beforeend','<div class="bub you">Yes.</div>');confetti(innerWidth/2,innerHeight*.45,90)},1300)};
+
+/* thank you tickets + ending */
+all('.tk').forEach(function(g){g.onclick=function(){var on=g.classList.toggle('on');var sm=g.querySelector('small');if(!g.dataset.o)g.dataset.o=sm.textContent;sm.textContent=on?g.dataset.m.toUpperCase()+' \u2665':g.dataset.o;if(on){var r=g.getBoundingClientRect();confetti(r.left+r.width/2,r.top+r.height/2,50)}}});
+$('finBtn').onclick=function(){$('fin').textContent=C.final;$('fn').textContent=C.note;$('fn2').textContent=C.note2;$('fin').classList.add('on');$('fn').classList.add('on');$('fn2').classList.add('on');$('finBtn').style.display='none';
+ for(var i=0;i<6;i++)(function(i){setTimeout(function(){confetti(innerWidth*Math.random(),innerHeight*.3,80)},i*300)})(i)};
+/* floating red hearts on every page */
+$('hearts').innerHTML=Array.from({length:18},function(){var z=14+Math.random()*30;return '<i class="hh" style="left:'+(Math.random()*100)+'%;font-size:'+z+'px;--t:'+(10+Math.random()*10)+'s;--dl:-'+(Math.random()*18)+'s">&#9829;</i>'}).join('');
+/* sound */
+var ac=null,tm=null,sb=$('snd');
+var song=null;
+sb.onclick=function(){if(C.song){if(!song){song=new Audio(C.song);song.loop=true;song.onerror=function(){C.song='';song=null;sb.onclick()}}if(song.paused){song.play().catch(function(){});sb.textContent='\u266A SOUND ON'}else{song.pause();sb.textContent='\u266A SOUND OFF'}return}
+ if(tm){clearInterval(tm);tm=null;ac.suspend();sb.textContent='\u266A SOUND OFF';return}
+ var A=window.AudioContext||window.webkitAudioContext;if(!A)return;ac=ac||new A();ac.resume();var n=0,fr=[261.63,329.63,392,523.25,440,392,329.63,293.66];
+ function note(){var o=ac.createOscillator(),g=ac.createGain(),t0=ac.currentTime;o.type='sine';o.frequency.value=fr[n++%8];o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(.04,t0+.03);g.gain.exponentialRampToValueAtTime(.0001,t0+.95);o.start(t0);o.stop(t0+1)}
+ note();tm=setInterval(note,700);sb.textContent='\u266A SOUND ON'};
+</script>
+</body>
+</html>
